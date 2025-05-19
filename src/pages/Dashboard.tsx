@@ -13,14 +13,14 @@ import BillCard from '@/components/bills/BillCard';
 const bills = [
   {
     id: 'BILL-1001',
-    amount: 124.80,
+    amount: 8795,
     dueDate: '2023-05-21',
     status: 'pending',
     billingPeriod: 'April 2023'
   },
   {
     id: 'BILL-1000',
-    amount: 118.50,
+    amount: 7650,
     dueDate: '2023-04-20',
     status: 'paid',
     billingPeriod: 'March 2023'
@@ -104,7 +104,7 @@ const Dashboard = () => {
             <CardContent>
               <div className="flex flex-col md:flex-row justify-between gap-6">
                 <div className="space-y-1">
-                  <p className="text-3xl font-bold text-gradient">${bills[0].amount.toFixed(2)}</p>
+                  <p className="text-3xl font-bold text-gradient">₹{bills[0].amount.toFixed(2)}</p>
                   <p className="text-sm text-muted-foreground">Billing Period: {bills[0].billingPeriod}</p>
                   <div className="flex items-center mt-2">
                     <Zap className="h-4 w-4 text-muted-foreground mr-1" />
@@ -115,7 +115,7 @@ const Dashboard = () => {
                 <div className="space-y-1">
                   <p className="text-sm text-muted-foreground">Due Date</p>
                   <p className="text-xl font-medium">
-                    {new Date(bills[0].dueDate).toLocaleDateString('en-US', { 
+                    {new Date(bills[0].dueDate).toLocaleDateString('en-IN', { 
                       year: 'numeric', 
                       month: 'short', 
                       day: 'numeric' 

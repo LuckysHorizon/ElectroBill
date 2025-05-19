@@ -40,7 +40,7 @@ const PaymentForm: React.FC<PaymentFormProps> = ({ billId, amount }) => {
     setTimeout(() => {
       toast({
         title: "Payment Successful!",
-        description: `Your payment of $${amount.toFixed(2)} has been processed.`,
+        description: `Your payment of ₹${amount.toFixed(2)} has been processed.`,
         action: (
           <div className="h-8 w-8 bg-green-500/20 rounded-full flex items-center justify-center">
             <CheckCircle className="h-5 w-5 text-green-500" />
@@ -64,7 +64,7 @@ const PaymentForm: React.FC<PaymentFormProps> = ({ billId, amount }) => {
           <div className="space-y-4">
             <div className="space-y-2">
               <Label>Payment Amount</Label>
-              <div className="text-2xl font-bold">${amount.toFixed(2)}</div>
+              <div className="text-2xl font-bold">₹{amount.toFixed(2)}</div>
             </div>
             
             <div className="space-y-2">
@@ -178,7 +178,7 @@ const PaymentForm: React.FC<PaymentFormProps> = ({ billId, amount }) => {
               type="submit"
               disabled={processing}
             >
-              {processing ? 'Processing...' : `Pay $${amount.toFixed(2)}`}
+              {processing ? 'Processing...' : `Pay ₹${amount.toFixed(2)}`}
             </Button>
           </CardFooter>
         </form>

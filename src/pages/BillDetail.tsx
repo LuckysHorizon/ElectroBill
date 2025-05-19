@@ -11,30 +11,30 @@ import PaymentForm from '@/components/bills/PaymentForm';
 const sampleBills = [
   {
     id: 'BILL-1001',
-    amount: 124.80,
+    amount: 8795,
     dueDate: '2023-05-21',
     status: 'pending',
     billingPeriod: 'April 2023',
     usage: 145,
     breakdown: [
-      { item: 'Energy Charge', amount: 87.00 },
-      { item: 'Demand Charge', amount: 22.50 },
-      { item: 'Service Fee', amount: 9.99 },
-      { item: 'Taxes', amount: 5.31 }
+      { item: 'Energy Charge', amount: 5700 },
+      { item: 'Demand Charge', amount: 1450 },
+      { item: 'Service Fee', amount: 999 },
+      { item: 'Taxes', amount: 646 }
     ]
   },
   {
     id: 'BILL-1000',
-    amount: 118.50,
+    amount: 7650,
     dueDate: '2023-04-20',
     status: 'paid',
     billingPeriod: 'March 2023',
     usage: 128,
     breakdown: [
-      { item: 'Energy Charge', amount: 76.80 },
-      { item: 'Demand Charge', amount: 20.00 },
-      { item: 'Service Fee', amount: 9.99 },
-      { item: 'Taxes', amount: 11.71 }
+      { item: 'Energy Charge', amount: 5120 },
+      { item: 'Demand Charge', amount: 1280 },
+      { item: 'Service Fee', amount: 999 },
+      { item: 'Taxes', amount: 251 }
     ]
   }
 ];
@@ -57,9 +57,10 @@ const BillDetail = () => {
   
   if (!bill) return null;
   
-  const formattedAmount = new Intl.NumberFormat('en-US', {
+  const formattedAmount = new Intl.NumberFormat('en-IN', {
     style: 'currency',
-    currency: 'USD'
+    currency: 'INR',
+    maximumFractionDigits: 0
   }).format(bill.amount);
   
   const handleDownloadPDF = () => {
@@ -116,7 +117,7 @@ const BillDetail = () => {
                     <div>
                       <p className="text-sm text-muted-foreground">Due Date</p>
                       <p className="text-xl font-medium">
-                        {new Date(bill.dueDate).toLocaleDateString('en-US', { 
+                        {new Date(bill.dueDate).toLocaleDateString('en-IN', { 
                           year: 'numeric', 
                           month: 'short', 
                           day: 'numeric' 
@@ -157,7 +158,7 @@ const BillDetail = () => {
                   {bill.breakdown.map((item: { item: string; amount: number }, index: number) => (
                     <div key={index} className="flex justify-between pb-2 border-b border-muted/50 last:border-0">
                       <span>{item.item}</span>
-                      <span>${item.amount.toFixed(2)}</span>
+                      <span>₹{item.amount.toFixed(2)}</span>
                     </div>
                   ))}
                   <div className="flex justify-between pt-2 font-semibold">
@@ -209,14 +210,14 @@ const BillDetail = () => {
                       <div>
                         <p className="font-medium">Payment Received</p>
                         <p className="text-sm text-muted-foreground">
-                          {new Date(bill.dueDate).toLocaleDateString('en-US', { 
+                          {new Date(bill.dueDate).toLocaleDateString('en-IN', { 
                             year: 'numeric', 
                             month: 'short', 
                             day: 'numeric' 
                           })}
                         </p>
                       </div>
-                      <p className="font-medium text-green-500">${bill.amount.toFixed(2)}</p>
+                      <p className="font-medium text-green-500">₹{bill.amount.toFixed(2)}</p>
                     </div>
                   </div>
                 ) : (
