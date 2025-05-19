@@ -29,9 +29,10 @@ const BillCard: React.FC<BillProps> = ({ id, amount, dueDate, status, billingPer
     overdue: <AlertTriangle className="h-3 w-3" />
   };
 
-  const formattedAmount = new Intl.NumberFormat('en-US', {
+  const formattedAmount = new Intl.NumberFormat('en-IN', {
     style: 'currency',
-    currency: 'USD'
+    currency: 'INR',
+    maximumFractionDigits: 0
   }).format(amount);
 
   return (
@@ -54,7 +55,7 @@ const BillCard: React.FC<BillProps> = ({ id, amount, dueDate, status, billingPer
           <p className="text-sm mt-2">
             <span className="text-muted-foreground">Due Date: </span>
             <span className={status === 'overdue' ? 'text-destructive font-medium' : ''}>
-              {new Date(dueDate).toLocaleDateString('en-US', { 
+              {new Date(dueDate).toLocaleDateString('en-IN', { 
                 year: 'numeric', 
                 month: 'short', 
                 day: 'numeric' 

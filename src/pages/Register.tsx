@@ -5,11 +5,11 @@ import { CreditCard } from 'lucide-react';
 
 const Register = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-black to-black/90">
       <div className="w-full max-w-md space-y-8">
         <div className="text-center">
           <div className="flex justify-center">
-            <div className="w-12 h-12 rounded-full bg-electric-blue flex items-center justify-center">
+            <div className="w-12 h-12 rounded-full bg-red-600 flex items-center justify-center">
               <CreditCard className="h-6 w-6 text-white" />
             </div>
           </div>
@@ -21,7 +21,9 @@ const Register = () => {
           </p>
         </div>
         
-        <RegisterForm />
+        <div className="card-glass p-6 rounded-lg">
+          <RegisterForm />
+        </div>
       </div>
     </div>
   );

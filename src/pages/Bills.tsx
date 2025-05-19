@@ -4,46 +4,46 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import BillCard from '@/components/bills/BillCard';
 
-// Sample data
+// Sample data with INR currency
 const sampleBills = [
   {
     id: 'BILL-1001',
-    amount: 124.80,
+    amount: 8795,
     dueDate: '2023-05-21',
     status: 'pending',
     billingPeriod: 'April 2023'
   },
   {
     id: 'BILL-1000',
-    amount: 118.50,
+    amount: 7650,
     dueDate: '2023-04-20',
     status: 'paid',
     billingPeriod: 'March 2023'
   },
   {
     id: 'BILL-999',
-    amount: 135.25,
+    amount: 9250,
     dueDate: '2023-03-22',
     status: 'paid',
     billingPeriod: 'February 2023'
   },
   {
     id: 'BILL-998',
-    amount: 142.10,
+    amount: 10120,
     dueDate: '2023-02-20',
     status: 'paid',
     billingPeriod: 'January 2023'
   },
   {
     id: 'BILL-997',
-    amount: 128.35,
+    amount: 8335,
     dueDate: '2023-01-22',
     status: 'paid',
     billingPeriod: 'December 2022'
   },
   {
     id: 'BILL-996',
-    amount: 116.90,
+    amount: 7190,
     dueDate: '2022-12-20',
     status: 'paid',
     billingPeriod: 'November 2022'

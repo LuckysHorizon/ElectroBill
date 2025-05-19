@@ -12,7 +12,9 @@ const AdminUsers = () => {
         </p>
       </div>
       
-      <UserManagement />
+      <div className="card-glass p-6 rounded-lg">
+        <UserManagement />
+      </div>
     </div>
   );
 };

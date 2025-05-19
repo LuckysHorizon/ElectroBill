@@ -64,11 +64,12 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				},
 				electric: {
-					blue: '#4361EE',
-					purple: '#7209B7',
+					blue: '#ea384c',
+					purple: '#7c0b2b',
 					pink: '#F72585',
 					indigo: '#3A0CA3',
-					teal: '#4CC9F0'
+					teal: '#ea384c',
+					red: '#ea384c'
 				}
 			},
 			borderRadius: {
@@ -120,9 +121,9 @@ export default {
 			},
 			backgroundImage: {
 				'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-				'hero-pattern': 'linear-gradient(to bottom right, rgba(66, 97, 238, 0.7), rgba(114, 9, 183, 0.7))',
-				'glass-gradient': 'linear-gradient(to bottom right, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05))',
-				'card-gradient': 'linear-gradient(to bottom right, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.9))'
+				'hero-pattern': 'linear-gradient(to bottom right, rgba(0, 0, 0, 0.9), rgba(234, 56, 76, 0.7))',
+				'glass-gradient': 'linear-gradient(to bottom right, rgba(234, 56, 76, 0.05), rgba(0, 0, 0, 0.2))',
+				'card-gradient': 'linear-gradient(to bottom right, rgba(20, 20, 20, 0.9), rgba(10, 10, 10, 0.9))'
 			}
 		}
 	},
