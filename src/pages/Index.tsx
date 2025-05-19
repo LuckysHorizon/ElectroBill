@@ -50,7 +50,7 @@ const Index = () => {
                       <div className="flex justify-between items-start">
                         <div>
                           <p className="text-sm text-muted-foreground">Current Bill</p>
-                          <h3 className="text-2xl font-bold mt-1">$124.80</h3>
+                          <h3 className="text-2xl font-bold mt-1">₹1243.80</h3>
                         </div>
                         <div className="w-12 h-12 rounded-full bg-electric-blue/20 flex items-center justify-center">
                           <CreditCard className="h-6 w-6 text-electric-blue" />
@@ -70,7 +70,7 @@ const Index = () => {
                       <div className="flex justify-between items-center">
                         <div className="text-sm">
                           <p className="text-muted-foreground">Due Date</p>
-                          <p className="font-medium">May 21, 2023</p>
+                          <p className="font-medium">June 21, 2025</p>
                         </div>
                         <Button size="sm">Pay Now</Button>
                       </div>
