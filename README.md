@@ -1,73 +1,57 @@
-# Welcome to your Lovable project
+# ⚡ Electricity Bill Payment System with DevOps
 
-## Project info
+## 📖 Project Description
 
-**URL**: https://lovable.dev/projects/d83aca60-a76c-4997-b77a-94310d4140f2
+The **Electricity Bill Payment System with DevOps** is a modern, web-based application designed to streamline the electricity bill management process for both users and administrators. It enables users to:
 
-## How can I edit this code?
+- Register and log in securely
+- View electricity usage and history
+- Generate and download bills
+- Make secure online payments
 
-There are several ways of editing your application.
+Admins can:
 
-**Use Lovable**
+- Manage user accounts
+- Monitor payments and transactions
+- Update and configure tariff plans
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/d83aca60-a76c-4997-b77a-94310d4140f2) and start prompting.
+To ensure high-quality delivery and seamless deployment, the system follows DevOps practices including Continuous Integration and Continuous Deployment (CI/CD), containerization, and infrastructure automation.
 
-Changes made via Lovable will be committed automatically to this repo.
+---
 
-**Use your preferred IDE**
+## 🛠 Technologies Used
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### Frontend:
+- [Vite](https://vitejs.dev/) – Lightning-fast build tool
+- [TypeScript](https://www.typescriptlang.org/) – Typed JavaScript
+- [React](https://react.dev/) – Frontend library for building UIs
+- [shadcn/ui](https://ui.shadcn.com/) – Component library based on Radix and Tailwind
+- [Tailwind CSS](https://tailwindcss.com/) – Utility-first CSS framework
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+---
 
-Follow these steps:
+## 🚀 DevOps & CI/CD Tools
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+### 🔧 Version Control
+- **Git** – Source code versioning
+- **GitHub / GitLab / Bitbucket** – Repository hosting and collaboration
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+### ⚙️ CI/CD
+- **GitHub Actions / GitLab CI / Jenkins** – Automate build, test, and deployment
+- **SonarQube** – Code quality and security analysis
+- **JUnit / Selenium** – Unit and UI testing
 
-# Step 3: Install the necessary dependencies.
-npm i
+### 📦 Containerization & Orchestration
+- **Docker** – Containerize the application
+- **Kubernetes** (optional) – Container orchestration and scaling
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+### ☁️ Infrastructure as Code (IaC)
+- **Terraform / Ansible** – Automate provisioning and configuration
 
-**Edit a file directly in GitHub**
+### 📊 Monitoring & Logging
+- **Prometheus & Grafana** – Monitoring and alerting
+- **ELK Stack (Elasticsearch, Logstash, Kibana)** – Centralized logging
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+### 🌐 Cloud Hosting
+- **AWS / Azure / Google Cloud** (optional) – For hosting, storage, and CI/CD integrations
 
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/d83aca60-a76c-4997-b77a-94310d4140f2) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
