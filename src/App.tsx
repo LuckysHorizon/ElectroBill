@@ -14,6 +14,7 @@ import BillDetail from "./pages/BillDetail";
 import Admin from "./pages/Admin";
 import AdminUsers from "./pages/AdminUsers";
 import NotFound from "./pages/NotFound";
+import PaymentRequests from "./pages/PaymentRequests";
 
 const queryClient = new QueryClient();
 
@@ -33,6 +34,7 @@ const App = () => (
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/bills" element={<Bills />} />
             <Route path="/bills/:id" element={<BillDetail />} />
+            <Route path="/payment-requests" element={<PaymentRequests />} />
             <Route path="/payments" element={<Bills />} />
             <Route path="/notifications" element={<Dashboard />} />
             <Route path="/profile" element={<Dashboard />} />
