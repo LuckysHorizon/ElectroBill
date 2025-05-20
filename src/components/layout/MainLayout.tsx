@@ -4,13 +4,14 @@ import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import Navbar from './Navbar';
 import { useToast } from "@/components/ui/use-toast";
+import { useAuth } from "@/contexts/AuthContext";
 
 const MainLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [user, setUser] = useState<any>(null);
   const navigate = useNavigate();
   const location = useLocation();
   const { toast } = useToast();
+  const { user, profile } = useAuth();
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -18,9 +19,7 @@ const MainLayout = () => {
 
   useEffect(() => {
     // Check if user is logged in
-    const storedUser = localStorage.getItem('user');
-    
-    if (!storedUser) {
+    if (!user) {
       // If not on auth pages, redirect to login
       if (!['/login', '/register', '/'].includes(location.pathname)) {
         toast({
@@ -30,10 +29,8 @@ const MainLayout = () => {
         });
         navigate('/login');
       }
-    } else {
-      setUser(JSON.parse(storedUser));
     }
-  }, [location.pathname]);
+  }, [location.pathname, user, navigate, toast]);
 
   // Close sidebar on mobile when location changes
   useEffect(() => {
@@ -53,7 +50,7 @@ const MainLayout = () => {
         <Sidebar 
           isOpen={isSidebarOpen} 
           onClose={() => setIsSidebarOpen(false)}
-          userRole={user?.role || 'user'}
+          userRole={profile?.role || 'user'}
         />
       )}
       

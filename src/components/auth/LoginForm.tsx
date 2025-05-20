@@ -1,22 +1,45 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { useAuth } from "@/contexts/AuthContext";
+import { useToast } from "@/components/ui/use-toast";
 
 const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { signIn, loading } = useAuth();
+  const { signIn, loading, user } = useAuth();
   const navigate = useNavigate();
+  const { toast } = useToast();
+
+  // Redirect if user is already logged in
+  useEffect(() => {
+    if (user) {
+      navigate('/dashboard');
+    }
+  }, [user, navigate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     console.log('Attempting to sign in with:', email);
-    await signIn(email, password);
+    
+    if (!email || !password) {
+      toast({
+        variant: "destructive",
+        title: "Login failed",
+        description: "Please enter both email and password",
+      });
+      return;
+    }
+    
+    try {
+      await signIn(email, password);
+    } catch (error) {
+      console.error("Login form error:", error);
+    }
   };
 
   return (
