@@ -5,60 +5,17 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { useToast } from "@/components/ui/use-toast";
+import { useAuth } from "@/contexts/AuthContext";
 
 const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const { toast } = useToast();
+  const { signIn, loading } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
-    
-    // Simulate authentication
-    setTimeout(() => {
-      // Demo credentials
-      if (email === 'demo@example.com' && password === 'password') {
-        toast({
-          title: "Successfully logged in",
-          description: "Welcome back to your dashboard!",
-        });
-        
-        // Store user info in localStorage for demo purposes
-        localStorage.setItem('user', JSON.stringify({ 
-          email, 
-          name: 'Demo User',
-          role: 'user',
-          customerId: 'CUST-1001'
-        }));
-        
-        navigate('/dashboard');
-      } else if (email === 'admin@example.com' && password === 'admin') {
-        toast({
-          title: "Admin login successful",
-          description: "Welcome to the admin dashboard!",
-        });
-        
-        localStorage.setItem('user', JSON.stringify({ 
-          email, 
-          name: 'Admin User',
-          role: 'admin'
-        }));
-        
-        navigate('/admin');
-      } else {
-        toast({
-          variant: "destructive",
-          title: "Login failed",
-          description: "Invalid email or password. Please try again.",
-        });
-      }
-      
-      setIsLoading(false);
-    }, 1500);
+    await signIn(email, password);
   };
 
   return (
@@ -89,9 +46,7 @@ const LoginForm = () => {
                 className="text-xs text-primary hover:underline"
                 onClick={(e) => {
                   e.preventDefault();
-                  toast({
-                    description: "Password reset functionality would be implemented in production.",
-                  });
+                  navigate('/forgot-password');
                 }}
               >
                 Forgot password?
@@ -109,18 +64,13 @@ const LoginForm = () => {
           <Button 
             type="submit" 
             className="w-full" 
-            disabled={isLoading}
+            disabled={loading}
           >
-            {isLoading ? "Signing in..." : "Sign in"}
+            {loading ? "Signing in..." : "Sign in"}
           </Button>
         </form>
       </CardContent>
-      <CardFooter className="flex flex-col space-y-4">
-        <div className="text-sm text-center text-muted-foreground">
-          <p>Demo credentials:</p>
-          <p>User: demo@example.com / password</p>
-          <p>Admin: admin@example.com / admin</p>
-        </div>
+      <CardFooter className="flex justify-center">
         <div className="text-sm text-center">
           Don't have an account?{" "}
           <a 

@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { useToast } from "@/components/ui/use-toast";
+import { useAuth } from "@/contexts/AuthContext";
 
 const RegisterForm = () => {
   const [formData, setFormData] = useState({
@@ -16,8 +16,7 @@ const RegisterForm = () => {
     address: '',
     meterNumber: ''
   });
-  const [isLoading, setIsLoading] = useState(false);
-  const { toast } = useToast();
+  const { signUp, loading } = useAuth();
   const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,27 +28,17 @@ const RegisterForm = () => {
     e.preventDefault();
     
     if (formData.password !== formData.confirmPassword) {
-      toast({
-        variant: "destructive",
-        title: "Passwords don't match",
-        description: "Please make sure your passwords match.",
-      });
+      alert("Passwords don't match");
       return;
     }
     
-    setIsLoading(true);
+    await signUp(formData.email, formData.password, {
+      name: formData.name,
+      address: formData.address,
+      meterNumber: formData.meterNumber
+    });
     
-    // Simulate registration process
-    setTimeout(() => {
-      toast({
-        title: "Registration successful!",
-        description: "Your account has been created. Please sign in.",
-      });
-      
-      // Redirect to login page
-      navigate('/login');
-      setIsLoading(false);
-    }, 1500);
+    // The redirect is handled in the signUp function in AuthContext
   };
 
   return (
@@ -143,9 +132,9 @@ const RegisterForm = () => {
           <Button 
             type="submit" 
             className="w-full" 
-            disabled={isLoading}
+            disabled={loading}
           >
-            {isLoading ? "Creating account..." : "Register"}
+            {loading ? "Creating account..." : "Register"}
           </Button>
         </form>
       </CardContent>
