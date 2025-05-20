@@ -32,6 +32,12 @@ const RegisterForm = () => {
       return;
     }
     
+    console.log('Attempting to sign up with:', formData.email, 'and user data:', {
+      name: formData.name,
+      address: formData.address,
+      meterNumber: formData.meterNumber
+    });
+    
     await signUp(formData.email, formData.password, {
       name: formData.name,
       address: formData.address,

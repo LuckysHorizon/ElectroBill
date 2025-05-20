@@ -26,7 +26,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const { toast } = useToast();
 
   useEffect(() => {
-    // Set up the auth listener
+    // Set up the auth listener first
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (event, currentSession) => {
         console.log('Auth state changed:', event);
@@ -36,6 +36,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
         // Fetch profile data if user is logged in
         if (currentSession?.user) {
+          // Use setTimeout to avoid potential deadlock
           setTimeout(() => fetchUserProfile(currentSession.user.id), 0);
         } else {
           setProfile(null);
@@ -43,8 +44,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       }
     );
 
-    // Check for existing session
+    // Then check for existing session
     supabase.auth.getSession().then(({ data: { session: currentSession } }) => {
+      console.log('Got existing session:', currentSession ? 'yes' : 'no');
+      
       setSession(currentSession);
       setUser(currentSession?.user ?? null);
 
@@ -63,6 +66,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   // Fetch the user's profile data
   const fetchUserProfile = async (userId: string) => {
     try {
+      console.log('Fetching profile for user:', userId);
+      
       const { data, error } = await supabase
         .from('profiles')
         .select('*')
@@ -75,6 +80,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       }
       
       if (data) {
+        console.log('Profile data retrieved:', data);
         setProfile(data);
       }
     } catch (error) {
@@ -85,6 +91,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const signIn = async (email: string, password: string) => {
     try {
       setLoading(true);
+      console.log('Signing in with:', email);
+      
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password
@@ -101,11 +109,17 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       }
 
       if (data.user) {
-        const { data: profileData } = await supabase
+        console.log('Sign in successful, user:', data.user.id);
+        
+        const { data: profileData, error: profileError } = await supabase
           .from('profiles')
           .select('*')
           .eq('id', data.user.id)
           .single();
+          
+        if (profileError) {
+          console.error('Error fetching profile after login:', profileError);
+        }
         
         if (profileData) {
           setProfile(profileData);
@@ -119,6 +133,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           toast({
             title: "Successfully logged in",
             description: `Welcome back, ${profileData.full_name || 'User'}!`,
+          });
+        } else {
+          // Navigate even if profile fetch failed
+          navigate('/dashboard');
+          toast({
+            title: "Successfully logged in",
+            description: "Welcome back!",
           });
         }
       }
@@ -137,12 +158,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const signUp = async (email: string, password: string, userData: any) => {
     try {
       setLoading(true);
+      console.log('Signing up with:', email, 'and user data:', userData);
+      
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
         options: {
           data: {
-            full_name: userData.name
+            full_name: userData.name,
+            address: userData.address,
+            meterNumber: userData.meterNumber
           }
         }
       });
