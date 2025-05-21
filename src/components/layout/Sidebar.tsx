@@ -15,7 +15,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose, userRole }) => {
   const userLinks = [
     { name: 'Dashboard', path: '/dashboard', icon: <Home className="h-5 w-5" /> },
     { name: 'My Bills', path: '/bills', icon: <FileText className="h-5 w-5" /> },
-    { name: 'Payments', path: '/payments', icon: <CreditCard className="h-5 w-5" /> },
+    { name: 'Payment Requests', path: '/payment-requests', icon: <CreditCard className="h-5 w-5" /> },
     { name: 'Notifications', path: '/notifications', icon: <Bell className="h-5 w-5" /> },
     { name: 'Profile', path: '/profile', icon: <User className="h-5 w-5" /> },
   ];
@@ -65,6 +65,11 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose, userRole }) => {
                     isActive && "active"
                   )
                 }
+                onClick={() => {
+                  if (window.innerWidth < 768) {
+                    onClose();
+                  }
+                }}
               >
                 {link.icon}
                 <span>{link.name}</span>
