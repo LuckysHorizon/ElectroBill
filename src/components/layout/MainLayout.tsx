@@ -46,7 +46,7 @@ const MainLayout = () => {
 
   // Create a formatted user object for Navbar with proper types
   const userForNav = user ? {
-    name: profile?.full_name || user.email?.split('@')[0] || 'User',
+    name: profile?.full_name || (user.email ? user.email.split('@')[0] : 'User'),
     email: user.email || '',
     role: profile?.role || 'user'
   } : null;
