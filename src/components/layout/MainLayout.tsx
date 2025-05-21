@@ -44,6 +44,13 @@ const MainLayout = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  // Create a formatted user object for Navbar with proper types
+  const userForNav = user ? {
+    name: profile?.full_name || user.email?.split('@')[0] || 'User',
+    email: user.email || '',
+    role: profile?.role || 'user'
+  } : null;
+
   return (
     <div className="flex h-screen overflow-hidden">
       {user && (
@@ -55,7 +62,7 @@ const MainLayout = () => {
       )}
       
       <div className="flex flex-col flex-1 overflow-hidden">
-        {user && <Navbar onToggleSidebar={toggleSidebar} user={user} />}
+        {user && userForNav && <Navbar onToggleSidebar={toggleSidebar} user={userForNav} />}
         
         <main className={`flex-1 overflow-y-auto p-4 sm:p-6 transition-all duration-300 ${(user && !isSidebarOpen) ? 'ml-0' : ''}`}>
           <Outlet />
