@@ -37,15 +37,6 @@ const Index = () => {
                 >
                   Create Account
                 </Button>
-                <Button 
-                  variant="secondary" 
-                  size="lg"
-                  onClick={() => navigate('/contact-developer')}
-                  className="w-full sm:w-auto"
-                >
-                  Contact Developer
-                  <Info className="ml-2 h-4 w-4" />
-                </Button>
               </div>
             </div>
             <div className="flex justify-center animate-float">
