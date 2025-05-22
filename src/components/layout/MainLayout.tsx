@@ -21,13 +21,18 @@ const MainLayout = () => {
     // Check if user is logged in
     if (!user) {
       // If not on auth pages, redirect to login
-      if (!['/login', '/register', '/'].includes(location.pathname)) {
+      if (!['/login', '/register', '/', '/contact-developer'].includes(location.pathname)) {
         toast({
           variant: "destructive",
           title: "Authentication required",
           description: "Please log in to access this page",
         });
         navigate('/login', { replace: true });
+      }
+    } else {
+      // If user is logged in and tries to access login/register pages
+      if (['/login', '/register'].includes(location.pathname)) {
+        navigate('/dashboard', { replace: true });
       }
     }
   }, [location.pathname, user, navigate, toast]);
@@ -53,6 +58,8 @@ const MainLayout = () => {
     role: profile?.role || 'user'
   } : null;
 
+  const isPublicPage = ['/contact-developer'].includes(location.pathname);
+
   return (
     <div className="flex h-screen overflow-hidden">
       {user && (
@@ -64,7 +71,13 @@ const MainLayout = () => {
       )}
       
       <div className="flex flex-col flex-1 overflow-hidden">
-        {user && userForNav && <Navbar onToggleSidebar={toggleSidebar} user={userForNav} />}
+        {(user || isPublicPage) && (
+          <Navbar 
+            onToggleSidebar={toggleSidebar} 
+            user={userForNav}
+            showAuthButtons={isPublicPage && !user}
+          />
+        )}
         
         <main className="flex-1 overflow-y-auto p-4 sm:p-6 transition-all duration-300">
           <Outlet />

@@ -4,26 +4,29 @@ import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, FileText, Zap, AlertTriangle } from 'lucide-react';
+import { ArrowRight, FileText, Zap, AlertTriangle, User, Meter } from 'lucide-react';
 import UsageChart from '@/components/dashboard/UsageChart';
 import UsageSummary from '@/components/dashboard/UsageSummary';
 import BillCard from '@/components/bills/BillCard';
+import { useAuth } from "@/contexts/AuthContext";
+import { supabase } from '@/integrations/supabase/client';
+import { useToast } from "@/components/ui/use-toast";
 
 // Sample data
 const bills = [
   {
     id: 'BILL-1001',
     amount: 8795,
-    dueDate: '2023-05-21',
+    dueDate: '2025-05-21',
     status: 'pending',
-    billingPeriod: 'April 2023'
+    billingPeriod: 'April 2025'
   },
   {
     id: 'BILL-1000',
     amount: 7650,
-    dueDate: '2023-04-20',
+    dueDate: '2025-04-20',
     status: 'paid',
-    billingPeriod: 'March 2023'
+    billingPeriod: 'March 2025'
   }
 ];
 
@@ -40,8 +43,8 @@ const notifications: Notification[] = [
   {
     id: 'NOT-1001',
     title: 'May bill is ready',
-    message: 'Your May 2023 electricity bill is now available. Due date: May 21, 2023.',
-    date: '2023-05-01',
+    message: 'Your May 2025 electricity bill is now available. Due date: May 21, 2025.',
+    date: '2025-05-01',
     type: 'info',
     read: false
   },
@@ -49,7 +52,7 @@ const notifications: Notification[] = [
     id: 'NOT-1000',
     title: 'Payment confirmation',
     message: 'Your payment of $118.50 for April bill has been successfully processed.',
-    date: '2023-04-20',
+    date: '2025-04-20',
     type: 'success',
     read: true
   },
@@ -57,7 +60,7 @@ const notifications: Notification[] = [
     id: 'NOT-999',
     title: 'Usage alert',
     message: 'Your electricity usage is 15% higher than last month. Check your dashboard for details.',
-    date: '2023-04-15',
+    date: '2025-04-15',
     type: 'warning',
     read: false
   }
@@ -65,27 +68,56 @@ const notifications: Notification[] = [
 
 const Dashboard = () => {
   const navigate = useNavigate();
-  const [user, setUser] = useState<any>(null);
+  const { user, profile } = useAuth();
+  const { toast } = useToast();
+  const [loading, setLoading] = useState(false);
   
-  useEffect(() => {
-    // Get user from localStorage
-    const storedUser = localStorage.getItem('user');
-    
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
-  }, []);
-
   if (!user) return null;
+
+  const userName = profile?.full_name || user.email?.split('@')[0] || 'User';
+  const meterNumber = profile?.meter_number || 'Not configured';
 
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight">Welcome back, {user.name || 'User'}</h1>
+        <h1 className="text-3xl font-bold tracking-tight">Welcome back, {userName}</h1>
         <p className="text-muted-foreground">
           View your electricity usage and manage your bills
         </p>
       </div>
+      
+      {/* User Profile Summary */}
+      <Card className="card-glass animate-fade-in">
+        <CardHeader className="pb-2">
+          <CardTitle className="text-lg font-semibold">Account Information</CardTitle>
+          <CardDescription>Your personal and account details</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+              <p className="text-sm text-muted-foreground">Full Name</p>
+              <p className="font-medium">{profile?.full_name || 'Not configured'}</p>
+            </div>
+            <div>
+              <p className="text-sm text-muted-foreground">Email Address</p>
+              <p className="font-medium">{user.email}</p>
+            </div>
+            <div className="flex items-start gap-2">
+              <div className="mt-0.5 rounded-full bg-electric-blue/20 p-1">
+                <Meter className="h-4 w-4 text-electric-blue" />
+              </div>
+              <div>
+                <p className="text-sm text-muted-foreground">Meter Number</p>
+                <p className="font-medium">{meterNumber}</p>
+              </div>
+            </div>
+          </div>
+          <Button variant="outline" size="sm" className="mt-4" onClick={() => navigate('/profile')}>
+            Edit Profile
+            <User className="ml-2 h-4 w-4" />
+          </Button>
+        </CardContent>
+      </Card>
       
       <Tabs defaultValue="overview" className="space-y-6">
         <TabsList className="glass">

@@ -16,6 +16,10 @@ import Admin from "./pages/Admin";
 import AdminUsers from "./pages/AdminUsers";
 import NotFound from "./pages/NotFound";
 import PaymentRequests from "./pages/PaymentRequests";
+import Profile from "./pages/Profile";
+import ElectricityProviders from "./pages/ElectricityProviders";
+import ServiceNumber from "./pages/ServiceNumber";
+import ContactDeveloper from "./pages/ContactDeveloper";
 
 const queryClient = new QueryClient();
 
@@ -31,6 +35,7 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/contact-developer" element={<ContactDeveloper />} />
             
             {/* User Routes with MainLayout */}
             <Route element={<MainLayout />}>
@@ -40,7 +45,9 @@ const App = () => (
               <Route path="/payment-requests" element={<PaymentRequests />} />
               <Route path="/payments" element={<Bills />} />
               <Route path="/notifications" element={<Dashboard />} />
-              <Route path="/profile" element={<Dashboard />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/electricity-providers" element={<ElectricityProviders />} />
+              <Route path="/service-number/:providerId" element={<ServiceNumber />} />
               
               {/* Admin Routes */}
               <Route path="/admin" element={<Admin />} />

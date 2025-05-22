@@ -1,9 +1,8 @@
-
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { CreditCard, BarChart, Users, GitBranch, Server, ArrowRight } from 'lucide-react';
+import { CreditCard, BarChart, Users, GitBranch, Server, ArrowRight, Mail, Info } from 'lucide-react';
 
 const Index = () => {
   const navigate = useNavigate();
@@ -37,6 +36,15 @@ const Index = () => {
                   className="w-full sm:w-auto"
                 >
                   Create Account
+                </Button>
+                <Button 
+                  variant="secondary" 
+                  size="lg"
+                  onClick={() => navigate('/contact-developer')}
+                  className="w-full sm:w-auto"
+                >
+                  Contact Developer
+                  <Info className="ml-2 h-4 w-4" />
                 </Button>
               </div>
             </div>
@@ -141,10 +149,20 @@ const Index = () => {
             <p className="text-muted-foreground max-w-2xl mx-auto mb-8">
               Join thousands of customers who are already enjoying hassle-free electricity bill management.
             </p>
-            <Button size="lg" className="animate-pulse-slow" onClick={() => navigate('/register')}>
-              Create Your Account
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button size="lg" className="animate-pulse-slow" onClick={() => navigate('/register')}>
+                Create Your Account
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+              <Button 
+                variant="outline" 
+                size="lg"
+                onClick={() => navigate('/contact-developer')}
+              >
+                About the Developer
+                <Info className="ml-2 h-4 w-4" />
+              </Button>
+            </div>
           </div>
         </div>
       </section>

@@ -93,6 +93,110 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setLoading(true);
       console.log('Signing in with:', email);
       
+      // Check for admin credentials
+      if (email === 'admin@example.com' && password === 'admin') {
+        // Special handling for admin login
+        const { data, error } = await supabase.auth.signInWithPassword({
+          email,
+          password
+        });
+
+        if (error) {
+          // If admin user doesn't exist yet, create it
+          if (error.message.includes("Invalid login credentials")) {
+            const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
+              email,
+              password,
+              options: {
+                data: {
+                  full_name: 'System Administrator',
+                }
+              }
+            });
+            
+            if (signUpError) {
+              toast({
+                variant: "destructive",
+                title: "Admin setup failed",
+                description: signUpError.message,
+              });
+              return;
+            }
+            
+            // If admin user created successfully, try logging in again
+            if (signUpData.user) {
+              const { data: adminData, error: adminError } = await supabase
+                .from('profiles')
+                .update({ role: 'admin' })
+                .eq('id', signUpData.user.id);
+                
+              if (adminError) {
+                console.error('Error setting admin role:', adminError);
+              }
+              
+              // Now sign in as admin
+              const { data: signInData, error: signInError } = await supabase.auth.signInWithPassword({
+                email,
+                password
+              });
+              
+              if (signInError) {
+                toast({
+                  variant: "destructive",
+                  title: "Admin login failed",
+                  description: signInError.message,
+                });
+                return;
+              }
+              
+              // Admin successfully created and signed in
+              toast({
+                title: "Admin account created",
+                description: "Administrator account has been created and logged in.",
+              });
+              
+              navigate('/admin');
+              return;
+            }
+          } else {
+            toast({
+              variant: "destructive",
+              title: "Login failed",
+              description: error.message,
+            });
+            return;
+          }
+        }
+        
+        // Admin login successful
+        if (data.user) {
+          // Check if user has admin role, if not, update it
+          const { data: profileData, error: profileError } = await supabase
+            .from('profiles')
+            .select('*')
+            .eq('id', data.user.id)
+            .single();
+            
+          if (!profileError && profileData && profileData.role !== 'admin') {
+            // Update user role to admin
+            await supabase
+              .from('profiles')
+              .update({ role: 'admin' })
+              .eq('id', data.user.id);
+          }
+          
+          setProfile({ ...profileData, role: 'admin' });
+          navigate('/admin');
+          
+          toast({
+            title: "Admin login successful",
+            description: "Welcome back, Administrator!",
+          });
+          return;
+        }
+      }
+      
+      // Regular user login
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password
