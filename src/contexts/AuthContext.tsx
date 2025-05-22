@@ -93,8 +93,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setLoading(true);
       console.log('Signing in with:', email);
       
-      // Check for admin credentials
-      if (email === 'admin@example.com' && password === 'admin') {
+      // Check for specific admin credentials
+      if (email === 'admin@example.com' && password === 'Lucky@0716') {
         // Special handling for admin login
         const { data, error } = await supabase.auth.signInWithPassword({
           email,

@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Bell, Menu, LogOut, User } from 'lucide-react';
@@ -13,7 +14,7 @@ interface NavbarProps {
     name: string;
     email: string;
     role: string;
-  };
+  } | null;
   showAuthButtons: boolean;
 }
 
@@ -51,11 +52,20 @@ const Navbar: React.FC<NavbarProps> = ({ onToggleSidebar, user, showAuthButtons 
       </div>
       
       <div className="flex items-center gap-2">
-        <Button variant="ghost" size="icon" onClick={() => navigate('/notifications')}>
-          <Bell className="h-5 w-5" />
-        </Button>
+        {user && (
+          <Button variant="ghost" size="sm" onClick={handleLogout} className="hidden md:flex">
+            <LogOut className="mr-2 h-4 w-4" />
+            Logout
+          </Button>
+        )}
         
-        {showAuthButtons && (
+        {user && (
+          <Button variant="ghost" size="icon" onClick={() => navigate('/notifications')}>
+            <Bell className="h-5 w-5" />
+          </Button>
+        )}
+        
+        {user && (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" className="relative h-8 w-8 rounded-full">

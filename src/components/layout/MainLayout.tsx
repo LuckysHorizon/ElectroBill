@@ -71,13 +71,11 @@ const MainLayout = () => {
       )}
       
       <div className="flex flex-col flex-1 overflow-hidden">
-        {(user || isPublicPage) && (
-          <Navbar 
-            onToggleSidebar={toggleSidebar} 
-            user={userForNav}
-            showAuthButtons={isPublicPage && !user}
-          />
-        )}
+        <Navbar 
+          onToggleSidebar={toggleSidebar} 
+          user={userForNav}
+          showAuthButtons={isPublicPage && !user}
+        />
         
         <main className="flex-1 overflow-y-auto p-4 sm:p-6 transition-all duration-300">
           <Outlet />
