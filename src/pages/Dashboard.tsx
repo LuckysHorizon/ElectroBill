@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, FileText, Zap, AlertTriangle, User, Meter } from 'lucide-react';
+import { ArrowRight, FileText, Zap, AlertTriangle, User, Activity } from 'lucide-react';
 import UsageChart from '@/components/dashboard/UsageChart';
 import UsageSummary from '@/components/dashboard/UsageSummary';
 import BillCard from '@/components/bills/BillCard';
@@ -104,7 +104,7 @@ const Dashboard = () => {
             </div>
             <div className="flex items-start gap-2">
               <div className="mt-0.5 rounded-full bg-electric-blue/20 p-1">
-                <Meter className="h-4 w-4 text-electric-blue" />
+                <Activity className="h-4 w-4 text-electric-blue" />
               </div>
               <div>
                 <p className="text-sm text-muted-foreground">Meter Number</p>
