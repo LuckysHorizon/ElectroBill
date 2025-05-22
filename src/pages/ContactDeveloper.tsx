@@ -22,15 +22,15 @@ const ContactDeveloper = () => {
           </Card>
           
           <div className="flex justify-center space-x-4 mt-6">
-            <Button variant="outline" size="icon">
+            <Button variant="outline" size="icon" onClick={() => window.open('mailto:manikantaboda07@example.com', '_blank')} >
               <Mail className="h-5 w-5" />
               <span className="sr-only">Email</span>
             </Button>
-            <Button variant="outline" size="icon">
+            <Button variant="outline" size="icon" onClick={() => window.open('https://github.com/LuckysHorizon', '_blank')} >
               <Github className="h-5 w-5" />
               <span className="sr-only">GitHub</span>
             </Button>
-            <Button variant="outline" size="icon">
+            <Button variant="outline" size="icon" onClick={() => window.open('https://www.linkedin.com/in/manikanta-boda-01b301344/', '_blank')} >
               <Linkedin className="h-5 w-5" />
               <span className="sr-only">LinkedIn</span>
             </Button>
